@@ -1,0 +1,130 @@
+:root{
+    --thickness:3px;
+}
+  
+.cell{
+    width: 200px;
+    height: 200px;
+    font-size: 80px;
+
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: .3s;
+}
+
+
+.one{
+    border-right: var(--thickness) solid white;
+    border-bottom: var(--thickness) solid white;
+}
+.two{
+    border-bottom: var(--thickness) solid white;
+}
+.three{
+    border-left: var(--thickness) solid white;
+    border-bottom: var(--thickness) solid white;
+}
+.four{
+    border-right: var(--thickness) solid white;;
+}
+.six{
+    border-left: var(--thickness) solid white;
+}
+.five{}
+.seven{
+    border-top: var(--thickness) solid white;
+    border-right: var(--thickness) solid white;
+}
+.eight{
+    border-top: var(--thickness) solid white;
+}
+.nine{
+    border-left: var(--thickness) solid white;
+    border-top: var(--thickness) solid white;
+} 
+
+  
+h3{
+    width: 100%;
+    height: 100%;
+ 
+    font-size: 150px;
+    color:wheat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h3.visit{
+    opacity: 1;
+}
+
+h3.unvisit{
+    opacity: 0;
+    transition: .3;
+}
+h3:hover{
+    cursor: default;
+    user-select: none;
+}
+
+h3.unvisit:hover{
+    opacity: 1;
+}
+
+  /* modal_window */
+
+.modal{
+    width: 100vw;
+    height: 100vh;
+
+    top: 0;
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+
+    background-color: #f5deb383;
+
+    animation-name: modalBackground;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+@keyframes modalBackground {
+    0%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+}
+
+.modal div{
+    font-size: 50px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: rgb(109, 109, 232);
+    text-shadow: 0 0 4px black; 
+}
+
+.modal div{
+    user-select: none;
+}
+
+.modal div button{
+    font-size: 50px;
+}
+  
+  
+  
