@@ -2,7 +2,7 @@
 import React from "react";
 import style from "./style.module.css";
 
-export const Modal = ({ text = "wdwdd", reset }) => {
+export const Modal = ({ text, reset }) => {
   return (
     <div className={style.modal}>
       <div>

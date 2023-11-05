@@ -90,7 +90,7 @@ h3.unvisit:hover{
     align-items: center;
     z-index: 1;
 
-    background-color: #f5deb383;
+    background-color: #f5deb392;
 
     animation-name: modalBackground;
     animation-duration: 1s;
@@ -114,8 +114,8 @@ h3.unvisit:hover{
     justify-content: center;
     align-items: center;
 
-    color: rgb(109, 109, 232);
-    text-shadow: 0 0 4px black; 
+    color: rgb(16, 16, 217);
+    text-shadow: 0 0 4px white; 
 }
 
 .modal div{

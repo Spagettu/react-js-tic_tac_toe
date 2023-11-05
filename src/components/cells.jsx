@@ -30,42 +30,38 @@ const cellsForWin = [
 ];
 
 export const Cells = () => {
-  const [noughtsArr, setNoughtsArr] = useState([]);
-  const [crossesArr, setCrossesArr] = useState([]);
+  const [noughtsArray, setNoughtsArray] = useState([]);
+  const [crossesArray, setCrossesArray] = useState([]);
   const [modalFlag, setModalFlag] = useState(false); // флаг для показа модального окна после окончаня игры
   const [winner, setWinner] = useState("");
 
   const handleClick = (el) => {
     //  первый "if" запрещает менять символ текущей клетки
-    if (!crossesArr.includes(el) && !noughtsArr.includes(el)) {
-      if ((crossesArr.length + noughtsArr.length) % 2 === 0) {
-        setNoughtsArr((prev) => [...prev, el].sort());
+    if (!crossesArray.includes(el) && !noughtsArray.includes(el)) {
+      if ((crossesArray.length + noughtsArray.length) % 2 === 0) {
+        setNoughtsArray((prev) => [...prev, el].sort());
       } else {
-        setCrossesArr((prev) => [...prev, el].sort());
+        setCrossesArray((prev) => [...prev, el].sort());
       }
     }
   };
 
   useEffect(() => {
-    if (scanPlayersArray(cellsForWin, crossesArr)) {
+    if (scanPlayersArray(cellsForWin, crossesArray)) {
       setWinner("КРЕСТИКИ"); // crosses
-      modalWindow();
+      setModalFlag((prev) => !prev);
     }
 
-    if (scanPlayersArray(cellsForWin, noughtsArr)) {
+    if (scanPlayersArray(cellsForWin, noughtsArray)) {
       setWinner("НОЛИКИ"); //noughts
-      modalWindow();
+      setModalFlag((prev) => !prev);
     }
-  }, [crossesArr, noughtsArr]);
+  }, [crossesArray, noughtsArray]);
 
   const restart = () => {
-    setNoughtsArr([]);
-    setCrossesArr([]);
+    setNoughtsArray([]);
+    setCrossesArray([]);
     setModalFlag((prev) => (prev ? !prev : prev));
-  };
-
-  const modalWindow = () => {
-    setModalFlag((prev) => !prev);
   };
 
   return (
@@ -79,17 +75,18 @@ export const Cells = () => {
         >
           <h3
             className={
-              crossesArr.includes(index + 1) || noughtsArr.includes(index + 1)
+              crossesArray.includes(index + 1) ||
+              noughtsArray.includes(index + 1)
                 ? style.visit
                 : style.unvisit
             }
           >
             {/* текст в "h3": если на текущую клетку нажимали, то выводит символ игрока, который нажал, а иначе, если на клетку не нажимали, то при наведении будет подсвечиваться символ игрока, который сейчас ходит (зависит от длины массивов обоих игроков, так как они ходят поочередно), а, */}
-            {crossesArr.includes(index + 1)
+            {crossesArray.includes(index + 1)
               ? "X"
-              : noughtsArr.includes(index + 1)
+              : noughtsArray.includes(index + 1)
               ? "O"
-              : (crossesArr.length + noughtsArr.length) % 2 === 0
+              : (crossesArray.length + noughtsArray.length) % 2 === 0
               ? "O"
               : "X"}
           </h3>
