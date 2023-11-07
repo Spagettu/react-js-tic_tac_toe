@@ -1,4 +1,4 @@
-import { Cells } from "./components/cells";
+import { CellsStateful } from "./components";
 import "./App.css";
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
     <>
       <div className="app">
         <div className="container">
-          <Cells></Cells>
+          <CellsStateful></CellsStateful>
         </div>
       </div>
     </>
