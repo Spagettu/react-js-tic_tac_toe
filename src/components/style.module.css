@@ -65,7 +65,7 @@ h3.visit{
 
 h3.unvisit{
     opacity: 0;
-    transition: .3;
+    transition: .1s;
 }
 h3:hover{
     cursor: default;

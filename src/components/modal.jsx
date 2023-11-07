@@ -16,5 +16,5 @@ export const Modal = ({ reset, children }) => {
 
 Modal.propTypes = {
   reset: PropTypes.func.isRequired,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
