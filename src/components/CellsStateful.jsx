@@ -19,41 +19,40 @@ const cellsForWin = [
 export const CellsStateful = () => {
   const [noughtsArray, setNoughtsArray] = useState([]);
   const [crossesArray, setCrossesArray] = useState([]);
-  const [modalFlag, setModalFlag] = useState(false); // флаг для показа модального окна после окончания игры
   const [winner, setWinner] = useState("");
 
   const handleClick = (el) => {
     //  первый "if" запрещает менять символ текущей клетки
     if (!crossesArray.includes(el) && !noughtsArray.includes(el)) {
       if ((crossesArray.length + noughtsArray.length) % 2 === 0) {
-        setNoughtsArray((prev) => [...prev, el].sort());
+        setNoughtsArray((prev) => [...prev, el]);
       } else {
-        setCrossesArray((prev) => [...prev, el].sort());
+        setCrossesArray((prev) => [...prev, el]);
       }
     }
   };
 
   useEffect(() => {
-    if (scanPlayersArray(cellsForWin, crossesArray)) {
-      setWinner("КРЕСТИКИ"); // crosses
-      setModalFlag((prev) => !prev);
-    }
-
     if (scanPlayersArray(cellsForWin, noughtsArray)) {
       setWinner("НОЛИКИ"); //noughts
-      setModalFlag((prev) => !prev);
     }
-  }, [crossesArray, noughtsArray]);
+  }, [noughtsArray]);
+
+  useEffect(() => {
+    if (scanPlayersArray(cellsForWin, crossesArray)) {
+      setWinner("КРЕСТИКИ"); // crosses
+    }
+  }, [crossesArray]);
 
   const restart = () => {
     setNoughtsArray([]);
     setCrossesArray([]);
-    setModalFlag((prev) => (prev ? !prev : prev));
+    setWinner("");
   };
 
   return (
     <>
-      {modalFlag && <Modal reset={restart}>{winner} победили!</Modal>}
+      {winner && <Modal reset={restart}>{winner} победили!</Modal>}
       <CellsStateless
         noughtsArray={noughtsArray}
         crossesArray={crossesArray}
