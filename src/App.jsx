@@ -6,7 +6,7 @@ function App() {
     <>
       <div className="app">
         <div className="container">
-          <CellsStateful></CellsStateful>
+          <CellsStateful />
         </div>
       </div>
     </>

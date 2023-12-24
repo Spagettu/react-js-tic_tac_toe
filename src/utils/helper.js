@@ -12,4 +12,5 @@ export function scanPlayersArray(pattern, playerArray) {
       count = 0;
     }
   }
+  return false;
 }

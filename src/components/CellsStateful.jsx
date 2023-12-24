@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import { Modal } from "./modal";
-import { scanPlayersArray } from "./helpers/helper";
+import { scanPlayersArray } from "../utils/helper";
 import { CellsStateless } from "./CellsStateless";
+import store from "../utils/store";
 
 const cellsForWin = [
   // номера победных клеток
@@ -17,42 +18,46 @@ const cellsForWin = [
 ];
 
 export const CellsStateful = () => {
-  const [noughtsArray, setNoughtsArray] = useState([]);
-  const [crossesArray, setCrossesArray] = useState([]);
-  const [winner, setWinner] = useState("");
+  const [noughtsArray, setNoughtsArray] = useState(store.getState().noughts);
+  const [crossesArray, setCrossesArray] = useState(store.getState().crosses);
+  const [winner, setWinner] = useState(store.getState().winner);
 
   const handleClick = (el) => {
     //  первый "if" запрещает менять символ текущей клетки
     if (!crossesArray.includes(el) && !noughtsArray.includes(el)) {
       if ((crossesArray.length + noughtsArray.length) % 2 === 0) {
-        setNoughtsArray((prev) => [...prev, el]);
+        store.dispatch({ type: "Add_To_Noughts_Array", payload: el });
+        setNoughtsArray(store.getState().noughts);
       } else {
-        setCrossesArray((prev) => [...prev, el]);
+        store.dispatch({ type: "Add_To_Crosses_Array", payload: el });
+        setCrossesArray(store.getState().crosses);
       }
     }
   };
 
   useEffect(() => {
     if (scanPlayersArray(cellsForWin, noughtsArray)) {
-      setWinner("НОЛИКИ"); //noughts
+      store.dispatch({ type: "Add_Winner", payload: "НОЛИКИ" });
+      setWinner(store.getState().winner); //noughts
     }
-  }, [noughtsArray]);
-
-  useEffect(() => {
     if (scanPlayersArray(cellsForWin, crossesArray)) {
-      setWinner("КРЕСТИКИ"); // crosses
+      store.dispatch({ type: "Add_Winner", payload: "КРЕСТИКИ" });
+      setWinner(store.getState().winner); // crosses
     }
-  }, [crossesArray]);
+  }, [noughtsArray, crossesArray]);
 
   const restart = () => {
-    setNoughtsArray([]);
-    setCrossesArray([]);
-    setWinner("");
+    store.dispatch({ type: "Clear_Crosses" });
+    store.dispatch({ type: "Clear_Noughts" });
+    store.dispatch({ type: "Clear_Winner" });
+    setNoughtsArray(store.getState().noughts);
+    setCrossesArray(store.getState().crosses);
+    setWinner(store.getState().winner);
   };
 
   return (
     <>
-      {winner && <Modal reset={restart}>{winner} победили!</Modal>}
+      {winner && <Modal restart={restart} />}
       <CellsStateless
         noughtsArray={noughtsArray}
         crossesArray={crossesArray}
